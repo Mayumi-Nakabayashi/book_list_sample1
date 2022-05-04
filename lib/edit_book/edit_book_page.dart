@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'edit_bool_model.dart';
+import 'edit_book_model.dart';
 
 class EditBookPage extends StatelessWidget {
   final Stream<QuerySnapshot> _usersStream =
@@ -25,7 +25,7 @@ class EditBookPage extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Column(children: [
                 TextField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: '本のタイトル',
                   ),
                   onChanged: (text) {
@@ -33,10 +33,10 @@ class EditBookPage extends StatelessWidget {
                     model.title = text;
                   },
                 ),
-                SizedBox(height: 8,
+                const SizedBox(height: 8,
                 ),
                 TextField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: '本の著者',
                   ),
                   onChanged: (text) {
@@ -44,7 +44,7 @@ class EditBookPage extends StatelessWidget {
                     model.author = text;
                   },
                 ),
-                SizedBox(height: 16,
+                const SizedBox(height: 16,
                 ),
                 ElevatedButton(
                     onPressed: () async {

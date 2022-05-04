@@ -43,17 +43,36 @@ class BookListPage extends StatelessWidget {
                           SlidableAction(
                             // An action can be bigger than the others.
                             flex: 2,
-                            onPressed: null,
-
-                            //編集画面に遷移
-                            //画面に遷移
-
-
                             backgroundColor: Color(0xFF7BC043),
                             foregroundColor: Colors.white,
                             icon: Icons.edit,
                             label: '編集',
+
+                              //編集画面に遷移
+                              //画面に遷移 ？？？
+
+                            onPressed: () async {
+                              final bool? added = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => EditBookPage(),
+                                  fullscreenDialog: true,
+                                ),
+                              );
+　
+                              if (added != null && added) {
+                                const snackBar = SnackBar(
+                                  backgroundColor: Colors.green,
+                                  content: Text('本を追加しました'),
+                                );
+                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                              }
+
+                              model.fetchBookList();
+                            }
+
                           ),
+
                           SlidableAction(
                             onPressed: null,
                             backgroundColor: Color(0xFFFE4A49),
@@ -89,7 +108,7 @@ class BookListPage extends StatelessWidget {
                 );
 
                 if (added != null && added) {
-                  final snackBar = SnackBar(
+                  const snackBar = SnackBar(
                     backgroundColor: Colors.green,
                     content: Text('本を追加しました'),
                   );
@@ -99,7 +118,7 @@ class BookListPage extends StatelessWidget {
                 model.fetchBookList();
               },
               tooltip: 'Increment',
-              child: Icon(Icons.add),
+              child: const Icon(Icons.add),
             );
           }
         ),
