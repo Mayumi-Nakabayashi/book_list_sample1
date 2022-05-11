@@ -4,6 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 import '../add_book/add_book_page.dart';
 import '../domain/book.dart';
+import '../edit_book/edit_book_page.dart';
 import 'book_list_model.dart';
 
 class BookListPage extends StatelessWidget {
@@ -37,49 +38,46 @@ class BookListPage extends StatelessWidget {
 
 
                       // The end action pane is the one at the right or the bottom side.
-                      endActionPane: const ActionPane(
+                      endActionPane: ActionPane(
                         motion: ScrollMotion(),
                         children: [
                           SlidableAction(
-                            // An action can be bigger than the others.
+                            onPressed: (context) async {
+                              //　画面遷移
+                              final bool? added = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => EditBookPage(),
+                                ),
+                              );
+
+                              if (added != null && added) {
+                                const snackBar = SnackBar(
+                                  backgroundColor: Colors.green,
+                                  content: Text('本を編集しました'),
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              }
+                              model.fetchBookList();
+                            },
                             flex: 2,
                             backgroundColor: Color(0xFF7BC043),
                             foregroundColor: Colors.white,
                             icon: Icons.edit,
                             label: '編集',
-
-                              //編集画面に遷移
-                              //画面に遷移 ？？？
-
-                            onPressed: () async {
-                              final bool? added = await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => EditBookPage(),
-                                  fullscreenDialog: true,
-                                ),
-                              );
-　
-                              if (added != null && added) {
-                                const snackBar = SnackBar(
-                                  backgroundColor: Colors.green,
-                                  content: Text('本を追加しました'),
-                                );
-                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                              }
-
-                              model.fetchBookList();
-                            }
-
                           ),
 
                           SlidableAction(
-                            onPressed: null,
+                            onPressed: (context) {
+
+                            },
                             backgroundColor: Color(0xFFFE4A49),
                             foregroundColor: Colors.white,
                             icon: Icons.delete,
                             label: '削除',
                           ),
+
                         ],
                       ),
 
@@ -108,13 +106,13 @@ class BookListPage extends StatelessWidget {
                 );
 
                 if (added != null && added) {
-                  const snackBar = SnackBar(
+                  final snackBar = SnackBar(
                     backgroundColor: Colors.green,
                     content: Text('本を追加しました'),
                   );
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(snackBar);
                 }
-
                 model.fetchBookList();
               },
               tooltip: 'Increment',

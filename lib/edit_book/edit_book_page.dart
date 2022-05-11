@@ -17,7 +17,7 @@ class EditBookPage extends StatelessWidget {
       create: (_) => EditBookModel(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('本一覧'),
+          title: const Text('本を編集'),
         ),
         body: Center(
           child: Consumer<EditBookModel>(builder: (context, model, child) {
