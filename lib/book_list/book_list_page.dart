@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
@@ -8,8 +7,7 @@ import '../edit_book/edit_book_page.dart';
 import 'book_list_model.dart';
 
 class BookListPage extends StatelessWidget {
-  final Stream<QuerySnapshot> _usersStream =
-  FirebaseFirestore.instance.collection('books').snapshots();
+  const BookListPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +37,7 @@ class BookListPage extends StatelessWidget {
 
                       // The end action pane is the one at the right or the bottom side.
                       endActionPane: ActionPane(
-                        motion: ScrollMotion(),
+                        motion: const ScrollMotion(),
                         children: [
                           SlidableAction(
                             onPressed: (context) async {
@@ -62,7 +60,7 @@ class BookListPage extends StatelessWidget {
                               model.fetchBookList();
                             },
                             flex: 2,
-                            backgroundColor: Color(0xFF7BC043),
+                            backgroundColor: const Color(0xFF7BC043),
                             foregroundColor: Colors.white,
                             icon: Icons.edit,
                             label: '編集',
@@ -72,7 +70,7 @@ class BookListPage extends StatelessWidget {
                             onPressed: (context) {
 
                             },
-                            backgroundColor: Color(0xFFFE4A49),
+                            backgroundColor: const Color(0xFFFE4A49),
                             foregroundColor: Colors.white,
                             icon: Icons.delete,
                             label: '削除',
